@@ -20,8 +20,8 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #  THE SOFTWARE.
 
-FROM openjdk:8-jdk-alpine
-MAINTAINER Oleg Nenashev <o.v.nenashev@gmail.com>
+FROM greyfoxit/alpine-android
+MAINTAINER Sean Taylor <sean.r.taylor.1912@gmail.com>
 
 ARG user=jenkins
 ARG group=jenkins
