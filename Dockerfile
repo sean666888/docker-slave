@@ -20,8 +20,8 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #  THE SOFTWARE.
 
-FROM openjdk:8-jdk
-MAINTAINER Oleg Nenashev <o.v.nenashev@gmail.com>
+FROM greyfoxit/alpine-android
+MAINTAINER Sean Taylor <sean.r.taylor.1912@gmail.com>
 
 ARG user=jenkins
 ARG group=jenkins
@@ -36,10 +36,11 @@ LABEL Description="This is a base image, which provides the Jenkins agent execut
 ARG VERSION=3.20
 ARG AGENT_WORKDIR=/home/${user}/agent
 
-RUN curl --create-dirs -sSLo /usr/share/jenkins/slave.jar https://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/${VERSION}/remoting-${VERSION}.jar \
+RUN apk add --update --no-cache curl bash git openssh-client openssl \
+  && curl --create-dirs -sSLo /usr/share/jenkins/slave.jar https://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/${VERSION}/remoting-${VERSION}.jar \
   && chmod 755 /usr/share/jenkins \
-  && chmod 644 /usr/share/jenkins/slave.jar
-
+  && chmod 644 /usr/share/jenkins/slave.jar \
+  && apk del curl
 USER ${user}
 ENV AGENT_WORKDIR=${AGENT_WORKDIR}
 RUN mkdir /home/${user}/.jenkins && mkdir -p ${AGENT_WORKDIR}
