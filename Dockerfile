@@ -30,7 +30,7 @@ ARG gid=10000
 
 ENV HOME /home/${user}
 RUN addgroup -g ${gid} ${group}
-RUN adduser -c "Jenkins user" -d $HOME -u ${uid} -g ${gid} -m ${user}
+RUN adduser -h $HOME -u ${uid} -G ${group} ${user}
 LABEL Description="This is a base image, which provides the Jenkins agent executable (slave.jar)" Vendor="Jenkins project" Version="3.20"
 
 ARG VERSION=3.20
